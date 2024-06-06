@@ -2,7 +2,7 @@ import os
 import socket
 import threading
 from config import *
-from myhttp import *
+from myhttp import get_status_str, get_content_type
 
 def send_response(client:socket.socket, status_code:int, content_type='text/html', body=b''):
     response = f"HTTP/1.1 {get_status_str(status_code)}\r\nContent-Type: {content_type}\r\n\r\n"
@@ -45,6 +45,12 @@ class HTTPServer:
         except KeyboardInterrupt:
             self.server.close()
             print("\nServer stopped.")
+    
+    def handle_GET(self, client:socket.socket, path:str):
+        if path == '/':
+            path = '/index.html'
+        file_path = DOCUMENT_ROOT + path
+        send_file(client, file_path)
 
     def handle_client(self, client:socket.socket):
         try:
@@ -53,13 +59,10 @@ class HTTPServer:
             request_method, path, http_version = request_line.split()
             print(f"request method: {request_method}, path: {path}, version: {http_version}")
 
-            if request_method != 'GET':
-                send_error(client, 400)
+            if request_method == 'GET':
+                self.handle_GET(client, path)
             else:
-                if path == '/':
-                    path = '/index.html'
-                file_path = DOCUMENT_ROOT + path
-                send_file(client, file_path)
+                send_error(client, 400)
 
         except Exception as e:
             print(f"Error handling client: {e}")
