@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import cgi
 import cgitb
+import json
 
 cgitb.enable()
 
@@ -22,6 +23,9 @@ elif operation == 'divide':
     else:
         result = 'Error: Division by zero'
 
-template = open('info.html', 'r').read()
-html_content = template.replace('info', str(result))
-print(html_content)
+response = {
+    'result': result
+}
+
+print('Content-Type: application/json\n')
+print(json.dumps(response))
