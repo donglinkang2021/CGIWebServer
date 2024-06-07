@@ -75,12 +75,7 @@ class RequestHandler(threading.Thread):
             self.send_error(500)
             print(stderr.decode('utf-8'))
         else:
-            head = Header(self.http_version, 200)\
-                .add_header('Content-Type', 'text/html')\
-                .add_header('Content-Length', str(len(stdout)))\
-                .add_header('Last-Modified', date_time_string())\
-                .__str__().encode('utf-8')
-            self.send_response(head, stdout)
+            self.send_response(stdout)
 
     def handle_getServerInfo(self):
         server_name = socket.gethostname()
