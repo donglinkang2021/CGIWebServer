@@ -1,3 +1,5 @@
+VERSION = 'HTTP/1.1'
+
 # socket
 MAX_CONN = 10 # MAX_CONNECTIONS
 HOST, PORT = '0.0.0.0', 8888

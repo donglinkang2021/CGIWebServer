@@ -5,25 +5,51 @@ from config import *
 from myhttp import get_status_str, get_content_type
 import subprocess
 import urllib.parse
+from utils import date_time_string
 from typing import Tuple
 
-def send_response(client: socket.socket, status_code: int, content_type='text/html', body=b''):
-    response = f"HTTP/1.1 {get_status_str(status_code)}\r\nContent-Type: {content_type}\r\n\r\n"
-    client.sendall(response.encode('utf-8') + body)
+class Header:
+    def __init__(self, version: str, status_code: int):
+        self.version = version
+        self.status_code = status_code
+        self.headers = {}
+
+    def add_header(self, key: str, value: str):
+        self.headers[key] = value
+        return self
+
+    def __str__(self):
+        type = f"{self.version} {get_status_str(self.status_code)}\r\n"
+        headers = '\r\n'.join([f"{k}: {v}" for k, v in self.headers.items()])
+        return type + headers + '\r\n\r\n'
+
+def send_response(client: socket.socket, head = b'', body=b''):
+    client.sendall(head + body)
 
 def send_error(client: socket.socket, status_code: int):
     error_path = DOCUMENT_ROOT + '/info.html'
     body = open(error_path, 'r', encoding='utf-8').read()
     body = body.replace('info', get_status_str(status_code)).encode('utf-8')
-    send_response(client, status_code, body=body)
+    head = Header(VERSION, status_code)\
+        .add_header('Content-Type', 'text/html')\
+        .__str__().encode('utf-8')
+    send_response(client, head, body)
 
-def send_file(client: socket.socket, file_path: str):
+def send_file(client: socket.socket, path: str, just_head=False):
+    if path == '/':
+        path = '/index.html'
+    file_path = DOCUMENT_ROOT + path
     if not os.path.exists(file_path):
         send_error(client, 404)
     else:
         body = open(file_path, 'rb').read()
         content_type = get_content_type(file_path)
-        send_response(client, 200, content_type, body)
+        head = Header(VERSION, 200)\
+            .add_header('Content-Type', content_type)\
+            .add_header('Content-Length', str(len(body)))\
+            .add_header('Last-Modified', date_time_string())\
+            .__str__().encode('utf-8')
+        send_response(client, head, body if not just_head else b'')
 
 def execute_cgi(client: socket.socket, path: str, method: str, body: str):
     if not os.path.exists(DOCUMENT_ROOT + path):
@@ -48,7 +74,12 @@ def execute_cgi(client: socket.socket, path: str, method: str, body: str):
         send_error(client, 500)
         print(stderr.decode('utf-8'))
     else:
-        send_response(client, 200, 'text/html', stdout)
+        head = Header(VERSION, 200)\
+            .add_header('Content-Type', 'text/html')\
+            .add_header('Content-Length', str(len(stdout)))\
+            .add_header('Last-Modified', date_time_string())\
+            .__str__().encode('utf-8')
+        send_response(client, head, stdout)
 
 def get_headers_body(request: str) -> Tuple[dict, str]:
     headers = {}
@@ -84,10 +115,10 @@ class HTTPServer:
             print("\nServer stopped.")
     
     def handle_GET(self, client: socket.socket, path: str):
-        if path == '/':
-            path = '/index.html'
-        file_path = DOCUMENT_ROOT + path
-        send_file(client, file_path)
+        send_file(client, path)
+
+    def handle_HEAD(self, client: socket.socket, path: str):
+        send_file(client, path, just_head=True)
 
     def handle_POST(self, client: socket.socket, path: str, body: str):
         if path.startswith('/cgi-bin/'):
@@ -104,6 +135,8 @@ class HTTPServer:
 
             if request_method == 'GET':
                 self.handle_GET(client, path)
+            elif request_method == 'HEAD':
+                self.handle_HEAD(client, path)
             elif request_method == 'POST':
                 _, body = get_headers_body(request)
                 self.handle_POST(client, path, body)
