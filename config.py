@@ -7,4 +7,4 @@ ADDR = (HOST, PORT)
 TIMEOUT = 30
 
 # webroot
-DOCUMENT_ROOT = './webroot'  # Web文档的根目录
+DOCUMENT_ROOT = './webroot'

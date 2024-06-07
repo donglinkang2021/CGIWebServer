@@ -1,4 +1,29 @@
-__all__ = ['get_content_type']
+import time
+from email.utils import formatdate
+from typing import Tuple
+
+__all__ = [
+    'parse_request',
+    'get_time', 
+    'addr2str',
+    'date_time_string',
+    'get_content_type'
+]
+
+def parse_request(request: str) -> Tuple[str, dict, str]:
+    head, body = request.split('\r\n\r\n', 1)
+    request_line = head.splitlines()[0]
+    headers = dict([line.split(': ', 1) for line in head.splitlines()[1:]])
+    return request_line, headers, body
+
+def get_time(timefmt:str='%Y-%m-%d_%H-%M-%S') -> str:
+    return time.strftime(timefmt, time.localtime(time.time()))
+
+def addr2str(addr:Tuple[str, int]) -> str:
+    return f"{addr[0]}:{addr[1]}"
+
+def date_time_string():
+    return formatdate(time.time(), usegmt=True)
 
 def get_content_type(file_path:str) -> str:
     if file_path.endswith('.html'):
