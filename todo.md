@@ -10,4 +10,4 @@
 - [ ] Performance Analysis
 
 - [x] test `js` files
-- [ ] add `list_directory` function
+- [x] add `calc.html` use `cgi-bin/calc.py` to test
