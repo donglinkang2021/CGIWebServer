@@ -1,8 +1,4 @@
 import cgi
-import cgitb
-
-# Enable CGI traceback for debugging
-cgitb.enable()
 
 def read_template(filename):
     with open(filename, 'r') as file:
@@ -10,8 +6,6 @@ def read_template(filename):
 
 # Read the HTML template
 template = read_template('pages/hello.html')
-
-print("Content-type: text/html\n")
 
 form = cgi.FieldStorage()
 name = form.getvalue("name")
