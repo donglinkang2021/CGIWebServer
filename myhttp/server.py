@@ -24,6 +24,7 @@ class HTTPServer:
                 print(f'Accepted connection from {addr}')
                 RequestHandler(
                     client = client, 
+                    address = addr,
                     work_dir = self.work_dir,
                     http_version = self.version,
                     daemon = True

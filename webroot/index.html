@@ -7,16 +7,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>Web Server</h1>
+        <h1>CGI Web Server</h1>
         <table>
             <tr>
                 <td>Server Name:</td>
+                <td id="serverName"></td>
             </tr>
             <tr>
                 <td>Server Address:</td>
+                <td id="serverAddress"></td>
             </tr>
             <tr>
                 <td>Client Address:</td>
+                <td id="clientAddress"></td>
             </tr>
         </table>
         <button onclick="window.location.href='/form.html'">
@@ -26,5 +29,6 @@
             Play Snake Game
         </button>
     </div>
+    <script src="/static/server.js"></script>
 </body>
 </html>
