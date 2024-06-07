@@ -2,26 +2,10 @@ import os
 import socket
 import threading
 from config import *
-from myhttp import get_status_str, get_content_type
+from myhttp import get_status_str, get_content_type, Header
 import subprocess
-import urllib.parse
 from utils import date_time_string
 from typing import Tuple
-
-class Header:
-    def __init__(self, version: str, status_code: int):
-        self.version = version
-        self.status_code = status_code
-        self.headers = {}
-
-    def add_header(self, key: str, value: str):
-        self.headers[key] = value
-        return self
-
-    def __str__(self):
-        type = f"{self.version} {get_status_str(self.status_code)}\r\n"
-        headers = '\r\n'.join([f"{k}: {v}" for k, v in self.headers.items()])
-        return type + headers + '\r\n\r\n'
 
 def send_response(client: socket.socket, head = b'', body=b''):
     client.sendall(head + body)
