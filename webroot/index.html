@@ -7,11 +7,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>Form</h1>
-        <form action="/cgi-bin/hello.py" method="post">
-            Name: <input type="text" name="name"><br>
-            <input type="submit" value="Submit">
-        </form>
+        <h1>Web Server</h1>
+        <table>
+            <tr>
+                <td>Server Name:</td>
+            </tr>
+            <tr>
+                <td>Server Address:</td>
+            </tr>
+            <tr>
+                <td>Client Address:</td>
+            </tr>
+        </table>
+        <button onclick="window.location.href='/form.html'">
+            Go to Form
+        </button>
+        <button onclick="window.location.href='/snake.html'">
+            Play Snake Game
+        </button>
     </div>
 </body>
 </html>
