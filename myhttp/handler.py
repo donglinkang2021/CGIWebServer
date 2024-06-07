@@ -77,29 +77,8 @@ class RequestHandler(threading.Thread):
         else:
             self.send_response(stdout)
 
-    def handle_getServerInfo(self):
-        server_name = socket.gethostname()
-        server_address = socket.gethostbyname(server_name)
-        client_address = self.address[0]
-
-        info = {
-            "serverName": server_name,
-            "serverAddress": server_address,
-            "clientAddress": client_address
-        }
-
-        head = Header(self.http_version, 200)\
-            .add_header('Content-Type', 'application/json')\
-            .add_header('Content-Length', str(len(json.dumps(info))))\
-            .add_header('Last-Modified', date_time_string())\
-            .__str__().encode('utf-8')
-        self.send_response(head, json.dumps(info).encode())
-
     def handle_GET(self, path: str):
-        if path == "/getServerInfo":
-            self.handle_getServerInfo()
-        else:
-            self.send_file(path)
+        self.send_file(path)
 
     def handle_HEAD(self, path: str):
         self.send_file(path, just_head=True)
