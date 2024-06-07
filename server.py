@@ -65,14 +65,11 @@ def execute_cgi(client: socket.socket, path: str, method: str, body: str):
             .__str__().encode('utf-8')
         send_response(client, head, stdout)
 
-def get_headers_body(request: str) -> Tuple[dict, str]:
-    headers = {}
-    body = ''
-    if '\r\n\r\n' in request:
-        headers_body = request.split('\r\n\r\n', 1)
-        headers = dict([line.split(': ', 1) for line in headers_body[0].splitlines()[1:]])
-        body = headers_body[1]
-    return headers, body
+def parse_request(request: str) -> Tuple[str, dict, str]:
+    head, body = request.split('\r\n\r\n', 1)
+    request_line = head.splitlines()[0]
+    headers = dict([line.split(': ', 1) for line in head.splitlines()[1:]])
+    return request_line, headers, body
 
 class HTTPServer:
     def __init__(self, host: str, port: int, max_conn: int, timeout: int):
@@ -113,16 +110,15 @@ class HTTPServer:
     def handle_client(self, client: socket.socket):
         try:
             request = client.recv(1024).decode('utf-8')
-            request_line = request.splitlines()[0]
+            request_line, headers, body = parse_request(request)
             request_method, path, http_version = request_line.split()
             print(f"request method: {request_method}, path: {path}, version: {http_version}")
-
+            
             if request_method == 'GET':
                 self.handle_GET(client, path)
             elif request_method == 'HEAD':
                 self.handle_HEAD(client, path)
             elif request_method == 'POST':
-                _, body = get_headers_body(request)
                 self.handle_POST(client, path, body)
             else:
                 send_error(client, 400)
