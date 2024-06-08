@@ -18,3 +18,4 @@
 - [x] already fix webroot bug here, now it can handle `cgi` correctly
 - [x] modify my server to handle `cgi` correctly
 - [x] `list_directory`
+- [x] handle with 中文路径

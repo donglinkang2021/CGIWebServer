@@ -6,6 +6,7 @@ import json
 from .header import Header
 from .status import get_status_str
 from .utils import *
+import urllib.parse
 
 __all__ = ['RequestHandler']
 
@@ -38,6 +39,7 @@ class RequestHandler(threading.Thread):
 
     def send_file(self, path: str, just_head=False):
         cur_path = self.work_dir + path
+        cur_path = urllib.parse.unquote(cur_path)
         if os.path.isdir(cur_path):
             if not path.endswith('/'):
                 self.send_response(Header(self.http_version, 301)\
