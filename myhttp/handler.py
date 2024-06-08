@@ -178,6 +178,6 @@ class RequestHandler(threading.Thread):
 
         except Exception as e:
             print(f"Error handling client: {e}")
-            self.send_error(500)
         finally:
+            print(f"Connection from {self.address} closed")
             self.client.close()

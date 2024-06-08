@@ -2,7 +2,7 @@
 
 - [x] HTTP Implementation
 - [x] Ports and Addresses
-- [ ] Max Connections and Thread pool
+- [x] Max Connections and Thread pool
 - [x] CGI
 - [ ] Log File
 - [x] File Organization
@@ -19,3 +19,6 @@
 - [x] modify my server to handle `cgi` correctly
 - [x] `list_directory`
 - [x] handle with 中文路径
+
+- [x] Max Connections and Thread pool
+- [x] we can `ctrl+c` to stop the server now
