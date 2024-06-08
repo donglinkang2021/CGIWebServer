@@ -1,8 +1,11 @@
 # CGI Multithreaded Web Server
 
 ```shell
-venv\Scripts\Activate.ps1
-python server.py
+pip install pymysql
+```
+
+```shell
+python main.py
 ```
 
 [localhost](http://localhost:8888)

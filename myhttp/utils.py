@@ -38,5 +38,7 @@ def get_content_type(file_path:str) -> str:
         return 'image/jpeg'
     elif file_path.endswith('.gif'):
         return 'image/gif'
+    elif file_path.endswith('.svg'):
+        return 'image/svg+xml'
     else:
         return 'application/octet-stream'

@@ -52,7 +52,7 @@ class RequestHandler(threading.Thread):
                 .__str__().encode('utf-8')
             self.send_response(head, body if not just_head else b'')
 
-    def execute_cgi(self, path: str, method: str, body: str):
+    def execute_cgi(self, path: str, method: str, body: str, headers: dict):
         if not os.path.exists(self.work_dir + path):
             self.send_error(404)
             return
@@ -60,9 +60,10 @@ class RequestHandler(threading.Thread):
         env = os.environ.copy()
         env['REQUEST_METHOD'] = method
         env['CONTENT_LENGTH'] = str(len(body))
-
+        env['CONTENT_TYPE'] = headers.get('Content-Type', 'text/plain')
+        
         process = subprocess.Popen(
-            ['python', f'.{path}'],
+            ['python', '-u', f'.{path}'],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -75,7 +76,16 @@ class RequestHandler(threading.Thread):
             self.send_error(500)
             print(stderr.decode('utf-8'))
         else:
-            self.send_response(stdout)
+            out = stdout.decode('utf-8')
+            content_type, content = out.split('\r\n\r\n', 1)
+            content = content.encode('utf-8')
+            content_type = content_type.split(': ')[1]
+            head = Header(self.http_version, 200)\
+                .add_header('Content-Type', content_type)\
+                .add_header('Content-Length', str(len(content)))\
+                .add_header('Last-Modified', date_time_string())\
+                .__str__().encode('utf-8')
+            self.send_response(head + content)
 
     def handle_GET(self, path: str):
         self.send_file(path)
@@ -83,9 +93,9 @@ class RequestHandler(threading.Thread):
     def handle_HEAD(self, path: str):
         self.send_file(path, just_head=True)
 
-    def handle_POST(self, path: str, body: str):
+    def handle_POST(self, path: str, body: str, headers: dict):
         if path.startswith('/cgi-bin/'):
-            self.execute_cgi(path, 'POST', body)
+            self.execute_cgi(path, 'POST', body, headers)
         else:
             self.send_error(404)
 
@@ -101,7 +111,7 @@ class RequestHandler(threading.Thread):
             elif request_method == 'HEAD':
                 self.handle_HEAD(path)
             elif request_method == 'POST':
-                self.handle_POST(path, body)
+                self.handle_POST(path, body, headers)
             else:
                 self.send_error(400)
 
