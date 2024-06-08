@@ -1,21 +1,34 @@
-document.querySelector('form').addEventListener('submit', function(event) {
-    event.preventDefault();
+function calculate(event) {
+    event.preventDefault();  // 阻止表单的默认提交行为
 
-    var num1 = document.querySelector('input[name="num1"]').value;
-    var num2 = document.querySelector('input[name="num2"]').value;
-    var operation = document.querySelector('select[name="operation"]').value;
+    const form = document.getElementById('calcForm');
+    const formData = new FormData(form);
 
     fetch('/cgi-bin/calc.py', {
         method: 'POST',
-        body: new URLSearchParams({
-            'num1': num1,
-            'num2': num2,
-            'operation': operation
-        })
+        body: formData
     })
     .then(response => response.json())
     .then(data => {
-        // Update the page with the result
-        document.querySelector('#result').textContent = data.result;
+        const para = document.getElementById('result');
+        para.style.display = 'block';    
+        if (data.error) {
+            para.innerHTML = `
+                <span style="color: red;">
+                ${data.error}
+                </span>
+            `;
+        } else {
+            para.innerHTML = `
+                <span style="color: blue;">
+                Result = ${data.result}
+                </span>
+            `;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
     });
-});
+
+    return false;  // 防止表单的默认提交行为
+}

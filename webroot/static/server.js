@@ -1,12 +1,13 @@
 window.onload = function() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/cgi-bin/server.py', true);
-    xhr.onload = function() {
-        if (this.status == 200) {
-            var info = JSON.parse(this.responseText);
-            document.getElementById('serverName').innerText = info.serverName;
-            document.getElementById('serverAddress').innerText = info.serverAddress;
-        }
-    };
-    xhr.send();
+    fetch('/cgi-bin/server.py', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('serverName').innerText = data.serverName;
+        document.getElementById('serverAddress').innerText = data.serverAddress;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 };

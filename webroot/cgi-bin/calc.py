@@ -1,31 +1,41 @@
 #!/usr/bin/env python3
+
 import cgi
 import cgitb
 import json
 
 cgitb.enable()
 
+def calculate(num1, num2, op):
+    try:
+        num1 = float(num1)
+        num2 = float(num2)
+        if op == 'plus':
+            return num1 + num2
+        elif op == 'minus':
+            return num1 - num2
+        elif op == 'multiply':
+            return num1 * num2
+        elif op == 'devide':
+            if num2 == 0:
+                return "Cannot divide by zero!"
+            else:
+                return num1 / num2
+        else:
+            return "Invalid operator"
+    except Exception as e:
+        return str(e)
+
+print("Content-Type: application/json\n")
+
 form = cgi.FieldStorage()
+num1 = form.getvalue('num1')
+num2 = form.getvalue('num2')
+op = form.getvalue('op')
 
-num1 = float(form.getvalue('num1'))
-num2 = float(form.getvalue('num2'))
-operation = form.getvalue('operation')
+result = calculate(num1, num2, op)
 
-if operation == 'add':
-    result = num1 + num2
-elif operation == 'subtract':
-    result = num1 - num2
-elif operation == 'multiply':
-    result = num1 * num2
-elif operation == 'divide':
-    if num2 != 0:
-        result = num1 / num2
-    else:
-        result = 'Error: Division by zero'
-
-response = {
-    'result': result
-}
-
-print('Content-Type: application/json\n')
-print(json.dumps(response))
+if type(result) == str:
+    print(json.dumps({"error": result}))
+else:
+    print(json.dumps({"result": result}))

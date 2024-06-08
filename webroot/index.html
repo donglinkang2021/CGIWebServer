@@ -7,7 +7,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>CGI Web Server</h1>
+        <img src="/images/cgi.png" width="150">
+        <h1>
+            <img src="/images/fire.svg" width="50">
+            CGI Web Server
+            <img src="/images/fire.svg" width="50">
+        </h1>
         <table>
             <tr>
                 <td>Server Name:</td>
@@ -17,19 +22,18 @@
                 <td>Server Address:</td>
                 <td id="serverAddress"></td>
             </tr>
-            <tr>
-                <td>Client Address:</td>
-                <td id="clientAddress"></td>
-            </tr>
         </table>
         <button onclick="window.location.href='/form.html'">
-            Simple Form
+            Form
         </button>
         <button onclick="window.location.href='/calc.html'">
             Calculator
         </button>
         <button onclick="window.location.href='/snake.html'">
-            Snake Game
+            Game
+        </button>
+        <button onclick="window.location.href='/query.html'">
+            Query
         </button>
     </div>
     <script src="/static/server.js"></script>

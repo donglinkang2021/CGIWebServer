@@ -1,3 +1,4 @@
+import cgi
 import socket
 import json
 
@@ -8,11 +9,5 @@ info = {
     "serverName": server_name,
     "serverAddress": server_address
 }
-
-content = json.dumps(info)
-content_length = len(content)
-
-head = "HTTP/1.1 200 OK\n"
-head += "Content-Type: application/json\n"
-head += f"Content-Length: {content_length}\n\n"
-print(head + content)
+print("Content-Type: application/json\n")
+print(json.dumps(info))
