@@ -16,4 +16,5 @@
 - [x] already stay problem here, because my `cgi` code is not working
 
 - [x] already fix webroot bug here, now it can handle `cgi` correctly
-- [ ] modify my server to handle `cgi` correctly
+- [x] modify my server to handle `cgi` correctly
+- [x] `list_directory`

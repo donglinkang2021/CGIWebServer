@@ -37,20 +37,79 @@ class RequestHandler(threading.Thread):
         self.send_response(head, body)
 
     def send_file(self, path: str, just_head=False):
-        if path == '/':
-            path = '/index.html'
-        file_path = self.work_dir + path
-        if not os.path.exists(file_path):
+        cur_path = self.work_dir + path
+        if os.path.isdir(cur_path):
+            if not path.endswith('/'):
+                self.send_response(Header(self.http_version, 301)\
+                    .add_header('Location', path + '/')\
+                    .add_header('Content-Length', '0')\
+                    .__str__().encode('utf-8'))
+                return
+            for index in ["index.html", "index.htm"]:
+                index = os.path.join(cur_path, index)
+                if os.path.isfile(index):
+                    print(f"Index file found: {index}")
+                    cur_path = index
+                    break
+            else:
+                self.list_directory(cur_path)
+                return
+    
+        try:
+            f = open(cur_path, 'rb')
+            body = f.read()
+            f.close()
+        except OSError:
             self.send_error(404)
+            return
+        
+        head = Header(self.http_version, 200)\
+            .add_header('Content-Type', get_content_type(cur_path))\
+            .add_header('Content-Length', str(len(body)))\
+            .add_header('Last-Modified', date_time_string())\
+            .__str__().encode('utf-8')
+        
+        if just_head:
+            self.send_response(head)
         else:
-            body = open(file_path, 'rb').read()
-            content_type = get_content_type(file_path)
-            head = Header(self.http_version, 200)\
-                .add_header('Content-Type', content_type)\
-                .add_header('Content-Length', str(len(body)))\
-                .add_header('Last-Modified', date_time_string())\
-                .__str__().encode('utf-8')
-            self.send_response(head, body if not just_head else b'')
+            self.send_response(head, body)
+
+    def list_directory(self, path: str):
+        try:
+            list = os.listdir(path)
+        except OSError:
+            self.send_error(404)
+            return
+        list.sort(key=lambda a: a.lower())
+        r = []
+        displaypath = path
+        enc = 'utf-8'
+        title = f'Directory listing for {displaypath}'
+        r.append('<!DOCTYPE HTML>')
+        r.append('<html lang="en">')
+        r.append('<head>')
+        r.append(f'<meta charset="{enc}">')
+        r.append(f'<title>{title}</title>\n</head>')
+        r.append(f'<body>\n<h1>{title}</h1>')
+        r.append('<hr>\n<ul>')
+        for name in list:
+            fullname = os.path.join(path, name)
+            displayname = linkname = name
+            if os.path.isdir(fullname):
+                displayname = name + "/"
+                linkname = name + "/"
+            if os.path.islink(fullname):
+                displayname = name + "@"
+            r.append('<li><a href="%s">%s</a></li>'
+                    % (linkname, displayname))
+        r.append('</ul>\n<hr>\n</body>\n</html>\n')
+        body = '\n'.join(r).encode(enc)
+        head = Header(self.http_version, 200)\
+            .add_header('Content-Type', 'text/html')\
+            .add_header('Content-Length', str(len(body)))\
+            .add_header('Last-Modified', date_time_string())\
+            .__str__().encode('utf-8')
+        self.send_response(head, body)
 
     def execute_cgi(self, path: str, method: str, body: str, headers: dict):
         if not os.path.exists(self.work_dir + path):
