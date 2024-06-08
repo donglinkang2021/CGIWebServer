@@ -1,0 +1,143 @@
+(base) PS C:\Users\dongl\Desktop\cgi\project> python .\main.py
+LAPTOP-OKHBECVG: http://192.168.56.1:8888/
+Accepted connection from ('192.168.56.1', 7460)
+[2024-06-08_22-57-36] "GET / HTTP/1.1"
+dict_keys(['Host', 'Connection', 'Upgrade-Insecure-Requests', 'User-Agent', 'Accept', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Index file found: ./webroot/index.html
+Accepted connection from ('192.168.56.1', 7465)
+Connection from ('192.168.56.1', 7460) closed  
+[2024-06-08_22-57-36] "GET /static/styles.css HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Accepted connection from ('192.168.56.1', 7466)
+Accepted connection from ('192.168.56.1', 7467)
+Connection from ('192.168.56.1', 7465) closed
+[2024-06-08_22-57-36] "GET /static/form.css HTTP/1.1"
+[2024-06-08_22-57-36] "GET /images/cgi.png HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Accepted connection from ('192.168.56.1', 7468)
+[2024-06-08_22-57-36] "GET /images/fire.svg HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Connection from ('192.168.56.1', 7466) closed
+Connection from ('192.168.56.1', 7467) closed
+Accepted connection from ('192.168.56.1', 7469)
+[2024-06-08_22-57-36] "GET /static/server.js HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Connection from ('192.168.56.1', 7468) closed
+Connection from ('192.168.56.1', 7469) closed
+Accepted connection from ('192.168.56.1', 7470)
+[2024-06-08_22-57-36] "POST /cgi-bin/server.py HTTP/1.1"
+dict_keys(['Host', 'Connection', 'Content-Length', 'User-Agent', 'Accept', 'Origin', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Accepted connection from ('192.168.56.1', 7471)
+[2024-06-08_22-57-36] "GET /favicon.ico HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Connection from ('192.168.56.1', 7471) closed
+Connection from ('192.168.56.1', 7470) closed
+Accepted connection from ('192.168.56.1', 7491)
+[2024-06-08_22-57-49] "GET /form.html HTTP/1.1"
+dict_keys(['Host', 'Connection', 'Upgrade-Insecure-Requests', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Accepted connection from ('192.168.56.1', 7493)
+Connection from ('192.168.56.1', 7491) closed
+[2024-06-08_22-57-49] "GET /static/styles.css HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Connection from ('192.168.56.1', 7493) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7460)
+Accepted connection from ('192.168.56.1', 7494)
+[2024-06-08_22-57-49] "GET /static/form.css HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Connection from ('192.168.56.1', 7494) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7465)
+Accepted connection from ('192.168.56.1', 7497)
+[2024-06-08_22-57-55] "POST /cgi-bin/hello.py HTTP/1.1"
+dict_keys(['Host', 'Connection', 'Content-Length', 'Cache-Control', 'Upgrade-Insecure-Requests', 'Origin', 'Content-Type', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])      
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7466)
+Accepted connection from ('192.168.56.1', 7498)
+Connection from ('192.168.56.1', 7497) closed
+[2024-06-08_22-57-55] "GET /static/styles.css HTTP/1.1"
+dict_keys(['Host', 'Connection', 'If-Modified-Since', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Connection from ('192.168.56.1', 7498) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7467)
+Accepted connection from ('192.168.56.1', 7500)
+[2024-06-08_22-58-01] "GET /calc.html HTTP/1.1"
+dict_keys(['Host', 'Connection', 'Upgrade-Insecure-Requests', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7468)
+Accepted connection from ('192.168.56.1', 7501)
+Connection from ('192.168.56.1', 7500) closed
+[2024-06-08_22-58-01] "GET /static/styles.css HTTP/1.1"
+dict_keys(['Host', 'Connection', 'If-Modified-Since', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Connection from ('192.168.56.1', 7501) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7469)
+Accepted connection from ('192.168.56.1', 7502)
+[2024-06-08_22-58-01] "GET /static/form.css HTTP/1.1"
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7470)
+dict_keys(['Host', 'Connection', 'If-Modified-Since', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Accepted connection from ('192.168.56.1', 7503)
+[2024-06-08_22-58-01] "GET /static/calc.js HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Connection from ('192.168.56.1', 7502) closed
+Connection from ('192.168.56.1', 7503) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7471)
+Accepted connection from ('192.168.56.1', 7508)
+[2024-06-08_22-58-07] "POST /cgi-bin/calc.py HTTP/1.1"
+dict_keys(['Host', 'Connection', 'Content-Length', 'User-Agent', 'Content-Type', 'Accept', 'Origin', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Connection from ('192.168.56.1', 7508) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7491)
+Accepted connection from ('192.168.56.1', 7510)
+[2024-06-08_22-58-11] "GET /snake.html HTTP/1.1"
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7493)
+dict_keys(['Host', 'Connection', 'Upgrade-Insecure-Requests', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Accepted connection from ('192.168.56.1', 7511)
+Connection from ('192.168.56.1', 7510) closed
+[2024-06-08_22-58-12] "GET /static/styles.css HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Connection from ('192.168.56.1', 7511) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7494)
+Accepted connection from ('192.168.56.1', 7512)
+[2024-06-08_22-58-12] "GET /static/snake.css HTTP/1.1"
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7497)
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Accepted connection from ('192.168.56.1', 7513)
+[2024-06-08_22-58-12] "GET /static/snake.js HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Connection from ('192.168.56.1', 7512) closed
+Connection from ('192.168.56.1', 7513) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7498)
+Accepted connection from ('192.168.56.1', 7514)
+[2024-06-08_22-58-26] "GET /query.html HTTP/1.1"
+dict_keys(['Host', 'Connection', 'Upgrade-Insecure-Requests', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7500)
+Accepted connection from ('192.168.56.1', 7515)
+Connection from ('192.168.56.1', 7514) closed
+[2024-06-08_22-58-26] "GET /static/styles.css HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Connection from ('192.168.56.1', 7515) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7501)
+Accepted connection from ('192.168.56.1', 7516)
+[2024-06-08_22-58-26] "GET /static/table.css HTTP/1.1"
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7502)
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Accepted connection from ('192.168.56.1', 7517)
+[2024-06-08_22-58-26] "GET /static/query.js HTTP/1.1"
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7503)
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Accepted connection from ('192.168.56.1', 7518)
+Connection from ('192.168.56.1', 7516) closed
+[2024-06-08_22-58-26] "GET /static/form.css HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language', 'If-Modified-Since'])
+Connection from ('192.168.56.1', 7518) closed
+Connection from ('192.168.56.1', 7517) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7508)
+Accepted connection from ('192.168.56.1', 7521)
+[2024-06-08_22-58-29] "POST /cgi-bin/query.py HTTP/1.1"
+dict_keys(['Host', 'Connection', 'Content-Length', 'User-Agent', 'Content-Type', 'Accept', 'Origin', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Connection from ('192.168.56.1', 7521) closed
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7510)
+Accepted connection from ('192.168.56.1', 7525)
+[2024-06-08_22-58-33] "GET /%E4%B8%AD%E6%96%87%E7%95%8C%E9%9D%A2.html HTTP/1.1"
+Max connections reached. Closing oldest connection from ('192.168.56.1', 7511)
+dict_keys(['Host', 'Connection', 'Upgrade-Insecure-Requests', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Accepted connection from ('192.168.56.1', 7526)
+Connection from ('192.168.56.1', 7525) closed
+[2024-06-08_22-58-33] "GET /static/zh.css HTTP/1.1"
+dict_keys(['Host', 'Connection', 'User-Agent', 'Accept', 'Referer', 'Accept-Encoding', 'Accept-Language'])
+Connection from ('192.168.56.1', 7526) closed

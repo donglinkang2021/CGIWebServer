@@ -1,4 +1,5 @@
 from .handler import RequestHandler
+from .logger import Logger
 import socket
 import threading
 import queue
@@ -24,6 +25,7 @@ class HTTPServer:
 
         self.connections = queue.Queue() # to manage the thread pool
         self.max_conn = max_conn
+        self.logger = Logger(work_dir)
 
     def run(self):
         try:
@@ -48,6 +50,7 @@ class HTTPServer:
                         address = client_address,
                         work_dir = self.work_dir,
                         http_version = self.version,
+                        logger = self.logger,
                         daemon = True
                     ).start()
 

@@ -2,11 +2,11 @@ import os
 import subprocess
 import threading
 import socket
-import json
 from .header import Header
 from .status import get_status_str
 from .utils import *
 import urllib.parse
+from .logger import Logger
 
 __all__ = ['RequestHandler']
 
@@ -16,6 +16,7 @@ class RequestHandler(threading.Thread):
             address: tuple,
             work_dir: str,
             http_version: str,
+            logger: Logger,
             *args, **kwargs
         ):
         super().__init__(*args, **kwargs)
@@ -25,9 +26,12 @@ class RequestHandler(threading.Thread):
         self.http_version = http_version
         # use for error page
         self.info_page_path = self.work_dir + '/info.html'
+        # logger
+        self.logger = logger
 
     def send_response(self, head = b'', body=b''):
         self.client.sendall(head + body)
+        self.logger.log()
     
     def send_error(self, status_code: int):
         body = open(self.info_page_path, 'r', encoding='utf-8').read()
@@ -36,6 +40,7 @@ class RequestHandler(threading.Thread):
             .add_header('Content-Type', 'text/html')\
             .__str__().encode('utf-8')
         self.send_response(head, body)
+        self.logger.log_response(status_code, len(body))
 
     def send_file(self, path: str, just_head=False):
         cur_path = self.work_dir + path
@@ -70,6 +75,8 @@ class RequestHandler(threading.Thread):
             .add_header('Content-Length', str(len(body)))\
             .add_header('Last-Modified', date_time_string())\
             .__str__().encode('utf-8')
+        
+        self.logger.log_response(200, len(body))
         
         if just_head:
             self.send_response(head)
@@ -166,6 +173,8 @@ class RequestHandler(threading.Thread):
             request_line, headers, body = parse_request(request)
             request_method, path, http_version = request_line.split()
             print(f"[{get_time()}] \"{request_line}\"")
+
+            self.logger.log_request(self.address[0], request_line, headers)
             
             if request_method == 'GET':
                 self.handle_GET(path)

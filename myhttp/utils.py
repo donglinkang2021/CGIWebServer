@@ -22,8 +22,8 @@ def get_time(timefmt:str='%Y-%m-%d_%H-%M-%S') -> str:
 def addr2str(addr:Tuple[str, int]) -> str:
     return f"{addr[0]}:{addr[1]}"
 
-def date_time_string():
-    return formatdate(time.time(), usegmt=True)
+def date_time_string(localtime:bool=False, usegmt:bool=True) -> str:
+    return formatdate(time.time(), localtime=localtime, usegmt=usegmt)
 
 def get_content_type(file_path:str) -> str:
     if file_path.endswith('.html'):
