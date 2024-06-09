@@ -8,14 +8,14 @@ __all__ = ['HTTPServer']
 
 class HTTPServer:
     def __init__(self, 
-            host: str, port: int, max_conn: int, timeout: int, 
-            work_dir: str, http_version: str
+            host: str, port: int, 
+            max_conn: int, work_dir: str, 
+            http_version: str
         ):
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server.bind((host, port))
         server.listen(max_conn)
-        server.settimeout(timeout)
 
         self.server_socket = server
         self.work_dir = work_dir

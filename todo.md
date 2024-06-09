@@ -26,10 +26,12 @@
 - [x] add logger
 
 - one request one log line
-- log format: 
+- log format:
   - the visitor ip `remote_addr`
   - the request date and time `request_time`
   - the request first line `request_line`
   - the request `headers`
     - `User-Agent`
     - `Referer`
+
+- [x] release
